@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Session — Nat's Healing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #faf9f7; color: #2d2d2d; min-height: 100vh; }
+    
+    .booking-nav { background: #2d2d2d; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .booking-nav a { color: #fff; text-decoration: none; font-size: 0.9rem; }
+    .booking-nav .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: #d4a574; }
+    
+    .booking-container { max-width: 720px; margin: 2rem auto; padding: 0 1.5rem; }
+    
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; color: #2d2d2d; margin-bottom: 0.5rem; }
+    .subtitle { color: #6b6b6b; margin-bottom: 2rem; font-size: 1rem; }
+    
+    .form-section { background: #fff; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+    .form-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.2rem; color: #2d2d2d; }
+    
+    .session-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.5rem; }
+    @media (max-width: 500px) { .session-options { grid-template-columns: 1fr; } }
+    
+    .session-option { border: 2px solid #e8e4df; border-radius: 10px; padding: 1.2rem; cursor: pointer; transition: all 0.2s; text-align: center; }
+    .session-option:hover { border-color: #d4a574; }
+    .session-option.selected { border-color: #d4a574; background: #fdf8f3; }
+    .session-option input { display: none; }
+    .session-option h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 0.3rem; }
+    .session-option .format { font-size: 0.85rem; color: #6b6b6b; }
+    .session-option .badge { display: inline-block; background: #d4a574; color: #fff; font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 20px; margin-bottom: 0.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    
+    label { display: block; font-weight: 500; margin-bottom: 0.4rem; font-size: 0.9rem; color: #4a4a4a; }
+    input, select, textarea { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid #e0dcd7; border-radius: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: #faf9f7; transition: border-color 0.2s; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #d4a574; background: #fff; }
+    textarea { resize: vertical; min-height: 80px; }
+    
+    .form-row { margin-bottom: 1.2rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
+    
+    .payment-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+    @media (max-width: 600px) { .payment-options { grid-template-columns: 1fr 1fr; } }
+    
+    .payment-option { border: 2px solid #e8e4df; border-radius: 10px; padding: 1rem 0.5rem; cursor: pointer; transition: all 0.2s; text-align: center; }
+    .payment-option:hover { border-color: #d4a574; }
+    .payment-option.selected { border-color: #d4a574; background: #fdf8f3; }
+    .payment-option input { display: none; }
+    .payment-option .pay-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .payment-option .pay-label { font-size: 0.8rem; font-weight: 500; color: #4a4a4a; }
+    
+    .payment-details { margin-top: 1rem; padding: 1rem; background: #fdf8f3; border-radius: 8px; border: 1px solid #e8e4df; display: none; }
+    .payment-details.visible { display: block; }
+    .payment-details p { font-size: 0.9rem; color: #4a4a4a; line-height: 1.6; }
+    .payment-details strong { color: #2d2d2d; }
+    
+    .day-options { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .day-chip { padding: 0.5rem 1rem; border: 1.5px solid #e0dcd7; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s; background: #faf9f7; }
+    .day-chip:hover { border-color: #d4a574; }
+    .day-chip.selected { background: #d4a574; color: #fff; border-color: #d4a574; }
+    .day-chip input { display: none; }
+    
+    .btn-submit { display: block; width: 100%; padding: 1rem; background: #d4a574; color: #fff; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.3s; letter-spacing: 0.3px; }
+    .btn-submit:hover { background: #c4955f; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(212,165,116,0.35); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    
+    .success-msg { text-align: center; padding: 3rem 2rem; }
+    .success-msg .checkmark { font-size: 3rem; margin-bottom: 1rem; }
+    .success-msg h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; margin-bottom: 0.5rem; }
+    .success-msg p { color: #6b6b6b; line-height: 1.6; }
+    .success-msg a { color: #d4a574; text-decoration: none; font-weight: 500; }
+    
+    .error-msg { background: #fde8e8; color: #c53030; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.9rem; display: none; }
+    
+    .note { font-size: 0.8rem; color: #999; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <nav class="booking-nav">
+    <a href="index.html" class="logo">Nat's Healing</a>
+    <a href="index.html">← Back to Home</a>
+  </nav>
+
+  <div class="booking-container">
+    <h1>Book a Session</h1>
+    <p class="subtitle">Choose your session type, preferred time, and payment method.</p>
+
+    <div id="error" class="error-msg"></div>
+
+    <form id="bookingForm">
+      <!-- SESSION TYPE -->
+      <div class="form-section">
+        <h2>1. Choose Your Session</h2>
+        <div class="session-options">
+          <label class="session-option" onclick="selectSession(this)">
+            <input type="radio" name="sessionType" value="Initial Consultation" required>
+            <div class="badge">Most Popular</div>
+            <h3>Initial Consultation</h3>
+            <div class="format">Zoom Session</div>
+          </label>
+          <label class="session-option" onclick="selectSession(this)">
+            <input type="radio" name="sessionType" value="Follow-Up Session">
+            <h3>Follow-Up Session</h3>
+            <div class="format">Zoom Session</div>
+          </label>
+        </div>
+      </div>
+
+      <!-- YOUR INFO -->
+      <div class="form-section">
+        <h2>2. Your Information</h2>
+        <div class="form-grid">
+          <div class="form-row">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required>
+          </div>
+          <div class="form-row">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-row">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone">
+        </div>
+        <div class="form-row">
+          <label for="message">What brings you here? (optional)</label>
+          <textarea id="message" name="message" placeholder="Share a little about what you're looking for help with..."></textarea>
+        </div>
+      </div>
+
+      <!-- SCHEDULING -->
+      <div class="form-section">
+        <h2>3. Preferred Schedule</h2>
+        <div class="form-row">
+          <label>Preferred Days (select all that apply)</label>
+          <div class="day-options">
+            <label class="day-chip" onclick="toggleDay(this)"><input type="checkbox" name="days" value="Monday">Monday</label>
+            <label class="day-chip" onclick="toggleDay(this)"><input type="checkbox" name="days" value="Tuesday">Tuesday</label>
+            <label class="day-chip" onclick="toggleDay(this)"><input type="checkbox" name="days" value="Wednesday">Wednesday</label>
+            <label class="day-chip" onclick="toggleDay(this)"><input type="checkbox" name="days" value="Thursday">Thursday</label>
+            <label class="day-chip" onclick="toggleDay(this)"><input type="checkbox" name="days" value="Friday">Friday</label>
+            <label class="day-chip" onclick="toggleDay(this)"><input type="checkbox" name="days" value="Saturday">Saturday</label>
+            <label class="day-chip" onclick="toggleDay(this)"><input type="checkbox" name="days" value="Sunday">Sunday</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="timePreference">Preferred Time of Day</label>
+          <select id="timePreference" name="timePreference" required>
+            <option value="">Select a time...</option>
+            <option value="Morning (8am - 12pm)">Morning (8am - 12pm)</option>
+            <option value="Afternoon (12pm - 4pm)">Afternoon (12pm - 4pm)</option>
+            <option value="Evening (4pm - 7pm)">Evening (4pm - 7pm)</option>
+            <option value="Flexible">I'm flexible</option>
+          </select>
+        </div>
+        <p class="note">Nat will reach out to confirm your exact session date and time.</p>
+      </div>
+
+      <!-- PAYMENT -->
+      <div class="form-section">
+        <h2>4. Payment Method</h2>
+        <div class="payment-options">
+          <label class="payment-option" onclick="selectPayment(this, 'paypal')">
+            <input type="radio" name="paymentMethod" value="PayPal" required>
+            <div class="pay-icon">🅿️</div>
+            <div class="pay-label">PayPal</div>
+          </label>
+          <label class="payment-option" onclick="selectPayment(this, 'venmo')">
+            <input type="radio" name="paymentMethod" value="Venmo">
+            <div class="pay-icon">💳</div>
+            <div class="pay-label">Venmo</div>
+          </label>
+          <label class="payment-option" onclick="selectPayment(this, 'zelle')">
+            <input type="radio" name="paymentMethod" value="Zelle">
+            <div class="pay-icon">🏦</div>
+            <div class="pay-label">Zelle</div>
+          </label>
+          <label class="payment-option" onclick="selectPayment(this, 'card')">
+            <input type="radio" name="paymentMethod" value="Credit/Debit Card">
+            <div class="pay-icon">💳</div>
+            <div class="pay-label">Card</div>
+          </label>
+        </div>
+        <div id="pay-paypal" class="payment-details">
+          <p><strong>PayPal:</strong> After submitting, you'll receive an email with PayPal payment instructions from Nat.</p>
+        </div>
+        <div id="pay-venmo" class="payment-details">
+          <p><strong>Venmo:</strong> After submitting, you'll receive an email with the Venmo handle and payment amount.</p>
+        </div>
+        <div id="pay-zelle" class="payment-details">
+          <p><strong>Zelle:</strong> After submitting, you'll receive an email with Zelle payment details.</p>
+        </div>
+        <div id="pay-card" class="payment-details">
+          <p><strong>Card:</strong> After submitting, you'll receive a secure payment link via email to complete your payment.</p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">Submit Booking Request</button>
+    </form>
+
+    <div id="successMsg" class="form-section success-msg" style="display:none;">
+      <div class="checkmark">✨</div>
+      <h2>You're All Set!</h2>
+      <p>Your booking request has been submitted. Nat will reach out within 24 hours to confirm your session time and send payment details.</p>
+      <p style="margin-top:1rem;"><a href="index.html">← Back to Home</a></p>
+    </div>
+  </div>
+
+  <script>
+    function selectSession(el) {
+      document.querySelectorAll('.session-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+    function toggleDay(el) {
+      el.classList.toggle('selected');
+    }
+    function selectPayment(el, type) {
+      document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      document.querySelectorAll('.payment-details').forEach(d => d.classList.remove('visible'));
+      document.getElementById('pay-' + type).classList.add('visible');
+    }
+
+    // Auto-select session type from URL param
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('session') === 'initial') {
+      const el = document.querySelector('.session-option:first-child');
+      el.querySelector('input').checked = true;
+      selectSession(el);
+    } else if (params.get('session') === 'followup') {
+      const el = document.querySelector('.session-option:last-child');
+      el.querySelector('input').checked = true;
+      selectSession(el);
+    }
+
+    document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const errDiv = document.getElementById('error');
+      errDiv.style.display = 'none';
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const form = e.target;
+      const days = Array.from(form.querySelectorAll('input[name="days"]:checked')).map(c => c.value);
+
+      const data = {
+        sessionType: form.sessionType.value,
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        message: form.message.value,
+        preferredDays: days.join(', ') || 'Not specified',
+        timePreference: form.timePreference.value,
+        paymentMethod: form.paymentMethod.value
+      };
+
+      try {
+        const res = await fetch('/api/book', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error('Server error');
+        form.style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        errDiv.textContent = 'Something went wrong. Please try again or email 4natshealing@gmail.com directly.';
+        errDiv.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Submit Booking Request';
+      }
+    });
+  </script>
+</body>
+</html>
