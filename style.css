@@ -34,7 +34,7 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 500; lin
 .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: #fff; transition: color 0.4s; display: flex; align-items: center; gap: 0.5rem; }
 .nav.scrolled .nav-logo { color: #1a1a1a; }
 .nav-logo-img { height: 36px; width: auto; border-radius: 50%; }
-.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links { display: flex; align-items: center; gap: 2.5rem; margin-left: 2rem; }
 .nav-links a { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.8); transition: color 0.3s; font-weight: 400; }
 .nav-links a:hover { color: #fff; }
 .nav.scrolled .nav-links a { color: #6b6560; }
