@@ -61,10 +61,8 @@ h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 500; lin
 /* ===== ABOUT ===== */
 .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: center; }
 .about-image { position: relative; }
-.about-image-inner { aspect-ratio: 4/5; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #e8e2d8, #d4ccc0); display: flex; align-items: center; justify-content: center; }
-.about-image-placeholder { color: #8b7355; text-align: center; padding: 2rem; }
-.about-image-placeholder svg { width: 120px; height: 120px; margin: 0 auto 1rem; }
-.about-image-text { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; opacity: 0.5; }
+.about-image-inner { aspect-ratio: 4/5; border-radius: 12px; overflow: hidden; background: linear-gradient(135deg, #e8e2d8, #d4ccc0); }
+.about-photo { width: 100%; height: 100%; object-fit: cover; }
 .about-accent { position: absolute; top: -20px; right: -20px; width: 120px; height: 120px; border: 1px solid #c4b69c; border-radius: 50%; opacity: 0.3; }
 .about-text p { color: #6b6560; margin-bottom: 1rem; font-size: 1.05rem; }
 .about-highlight { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #1a1a1a !important; font-style: italic; border-left: 2px solid #c4b69c; padding-left: 1.5rem; margin: 2rem 0 !important; line-height: 1.6; }
