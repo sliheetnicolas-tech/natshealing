@@ -17,16 +17,17 @@
   <nav class="nav" id="nav">
     <div class="nav-inner">
       <a href="#" class="nav-logo"><img src="logo.png" alt="Nat's Healing" class="nav-logo-img"> Nat's Healing</a>
-      <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+      <button class="nav-toggle" aria-label="Menu" onclick="toggleMenu()">
         <span></span><span></span><span></span>
       </button>
+      <div class="nav-overlay" onclick="closeMenu()"></div>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#modalities">Modalities</a></li>
         <li><a href="#sessions">Sessions</a></li>
         <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#contact" class="nav-cta">Book a Session</a></li>
+        <li><a href="#sessions" class="nav-cta">Book a Session</a></li>
       </ul>
     </div>
   </nav>
@@ -354,14 +355,26 @@
       document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
     });
 
+    // Mobile menu
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('open');
+      document.querySelector('.nav-overlay').classList.toggle('open');
+      document.body.classList.toggle('menu-open');
+    }
+    function closeMenu() {
+      document.querySelector('.nav-links').classList.remove('open');
+      document.querySelector('.nav-overlay').classList.remove('open');
+      document.body.classList.remove('menu-open');
+    }
+
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', e => {
         e.preventDefault();
         const target = document.querySelector(a.getAttribute('href'));
         if (target) {
+          closeMenu();
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          document.querySelector('.nav-links').classList.remove('open');
         }
       });
     });
