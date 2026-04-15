@@ -86,7 +86,7 @@
 
   <div class="booking-container">
     <h1>Book a Session</h1>
-    <p class="subtitle">Choose your session type, preferred time, and payment method.</p>
+    <p class="subtitle">Choose your session type and preferred time. Payment is handled during your session.</p>
 
     <div id="error" class="error-msg"></div>
 
@@ -164,52 +164,13 @@
         <p class="note">Nat will reach out to confirm your exact session date and time.</p>
       </div>
 
-      <!-- PAYMENT -->
-      <div class="form-section">
-        <h2>4. Payment Method</h2>
-        <div class="payment-options">
-          <label class="payment-option" onclick="selectPayment(this, 'paypal')">
-            <input type="radio" name="paymentMethod" value="PayPal" required>
-            <div class="pay-icon">🅿️</div>
-            <div class="pay-label">PayPal</div>
-          </label>
-          <label class="payment-option" onclick="selectPayment(this, 'venmo')">
-            <input type="radio" name="paymentMethod" value="Venmo">
-            <div class="pay-icon">💳</div>
-            <div class="pay-label">Venmo</div>
-          </label>
-          <label class="payment-option" onclick="selectPayment(this, 'zelle')">
-            <input type="radio" name="paymentMethod" value="Zelle">
-            <div class="pay-icon">🏦</div>
-            <div class="pay-label">Zelle</div>
-          </label>
-          <label class="payment-option" onclick="selectPayment(this, 'card')">
-            <input type="radio" name="paymentMethod" value="Credit/Debit Card">
-            <div class="pay-icon">💳</div>
-            <div class="pay-label">Card</div>
-          </label>
-        </div>
-        <div id="pay-paypal" class="payment-details">
-          <p><strong>PayPal:</strong> After submitting, you'll receive an email with PayPal payment instructions from Nat.</p>
-        </div>
-        <div id="pay-venmo" class="payment-details">
-          <p><strong>Venmo:</strong> After submitting, you'll receive an email with the Venmo handle and payment amount.</p>
-        </div>
-        <div id="pay-zelle" class="payment-details">
-          <p><strong>Zelle:</strong> After submitting, you'll receive an email with Zelle payment details.</p>
-        </div>
-        <div id="pay-card" class="payment-details">
-          <p><strong>Card:</strong> After submitting, you'll receive a secure payment link via email to complete your payment.</p>
-        </div>
-      </div>
-
       <button type="submit" class="btn-submit" id="submitBtn">Submit Booking Request</button>
     </form>
 
     <div id="successMsg" class="form-section success-msg" style="display:none;">
       <div class="checkmark">✨</div>
       <h2>You're All Set!</h2>
-      <p>Your booking request has been submitted. Nat will reach out within 24 hours to confirm your session time and send payment details.</p>
+      <p>Your booking request has been submitted. Nat will reach out within 24 hours to confirm your session date and time. Payment will be handled during your session.</p>
       <p style="margin-top:1rem;"><a href="index.html">← Back to Home</a></p>
     </div>
   </div>
@@ -222,13 +183,6 @@
     function toggleDay(el) {
       el.classList.toggle('selected');
     }
-    function selectPayment(el, type) {
-      document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
-      el.classList.add('selected');
-      document.querySelectorAll('.payment-details').forEach(d => d.classList.remove('visible'));
-      document.getElementById('pay-' + type).classList.add('visible');
-    }
-
     // Auto-select session type from URL param
     const params = new URLSearchParams(window.location.search);
     if (params.get('session') === 'initial') {
@@ -261,7 +215,7 @@
         message: form.message.value,
         preferredDays: days.join(', ') || 'Not specified',
         timePreference: form.timePreference.value,
-        paymentMethod: form.paymentMethod.value
+        paymentMethod: 'Pay at session'
       };
 
       try {
